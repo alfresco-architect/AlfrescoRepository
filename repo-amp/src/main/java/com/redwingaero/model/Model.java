@@ -11,7 +11,7 @@ public class Model {
 	public static final QName TYPE_INVOICE= QName.createQName(NAMESPACE_INVOICE, INVOICE);
 	public static final QName TYPE_PURCHASE= QName.createQName(NAMESPACE_INVOICE, PURCHASE);
 	
-	public static final QName PROP_ASSO_INVOICE= QName.createQName(NAMESPACE_INVOICE, "rwa:POAssociation");
-	public static final QName PROP_ASSO_PURCHASE= QName.createQName(NAMESPACE_INVOICE, "rwa:POAssociationInvoice");
+	public static final QName PROP_ASSO_INVOICE= QName.createQName(NAMESPACE_INVOICE, "POAssociation");
+	public static final QName PROP_ASSO_PURCHASE= QName.createQName(NAMESPACE_INVOICE, "POAssociationInvoice");
 	
 }

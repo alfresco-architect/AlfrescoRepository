@@ -1,6 +1,5 @@
 package com.redwingaero.policy;
 
-import org.alfresco.model.ContentModel;
 import org.alfresco.repo.node.NodeServicePolicies;
 import org.alfresco.repo.policy.JavaBehaviour;
 import org.alfresco.repo.rule.ruletrigger.RuleTriggerAbstractBase;
@@ -21,35 +20,25 @@ public class InvoicePolicy extends RuleTriggerAbstractBase implements
 	}
 
 	public void onDeleteAssociation(AssociationRef nodeAssocRef) {
-
 		try {
-			/*
-			 * nodeService .removeAssociation(nodeAssocRef.getTargetRef(),
-			 * nodeAssocRef.getSourceRef(),
-			 * getReverseQnameAssociationName(nodeAssocRef .getTypeQName()));
-			 * System.out.println(nodeService.getProperty(
-			 * nodeAssocRef.getSourceRef(), ContentModel.PROP_NAME));
-			 */} catch (IllegalArgumentException exception) {
+			nodeService
+					.removeAssociation(nodeAssocRef.getTargetRef(),
+							nodeAssocRef.getSourceRef(),
+							getReverseQnameAssociationName(nodeAssocRef
+									.getTypeQName()));
+		} catch (IllegalArgumentException exception) {
 
 		}
 
 	}
 
 	public void onCreateAssociation(AssociationRef nodeAssocRef) {
-		System.out.println("Source Node Ref Invoice (When Updating Invoice)"
-				+ nodeService.getProperty(nodeAssocRef.getSourceRef(),
-						ContentModel.PROP_NAME));
-		System.out.println("Target Node Ref"
-				+ nodeService.getProperty(nodeAssocRef.getTargetRef(),
-						ContentModel.PROP_NAME));
 		try {
-			System.out.println("QNAME Is :"
-					+ getReverseQnameAssociationName(nodeAssocRef
-							.getTypeQName()));
-			
-			  nodeService .createAssociation(nodeAssocRef.getSourceRef(),
-			  nodeAssocRef.getTargetRef(),
-			  getReverseQnameAssociationName(nodeAssocRef .getTypeQName()));
+			nodeService
+					.createAssociation(nodeAssocRef.getTargetRef(),
+							nodeAssocRef.getSourceRef(),
+							getReverseQnameAssociationName(nodeAssocRef
+									.getTypeQName()));
 		} catch (Exception exception) {
 			System.out.println(exception);
 		}
@@ -57,10 +46,13 @@ public class InvoicePolicy extends RuleTriggerAbstractBase implements
 	}
 
 	public QName getReverseQnameAssociationName(QName qName) {
-		if (qName.isMatch(Model.PROP_ASSO_INVOICE))
-			qName = Model.PROP_ASSO_INVOICE;
-		else if (qName.isMatch(Model.PROP_ASSO_PURCHASE))
+		if (qName.isMatch(Model.PROP_ASSO_INVOICE)) {
 			qName = Model.PROP_ASSO_PURCHASE;
+		}
+
+		else if (qName.isMatch(Model.PROP_ASSO_PURCHASE)) {
+			qName = Model.PROP_ASSO_INVOICE;
+		}
 		return qName;
 	}
 
